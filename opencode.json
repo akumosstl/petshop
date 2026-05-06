@@ -227,7 +227,13 @@
     "prune": true,
     "reserved": 10000
   },
-
+    "mcp": {
+    "sql-runner": {
+      "type": "local",
+      "command": ["java", "-jar", "C:\\Users\\USER\\projects\\github\\petshop\\sql-runner.jar"],
+      "enabled": true
+    }
+  },
   "watcher": {
     "ignore": [
       "node_modules/**",
