@@ -1,3 +1,18 @@
+# Graphify
+
+```bash
+pip install graphifyy
+
+python -m graphify .
+
+python -m graphify update .
+
+python -m graphify opencode install
+
+```
+
+Sempre que você criar arquivos novos na sua tela de login, o grafo pode ficar desatualizado. Você tem duas opções:Rodar python -m graphify update . manualmente.Ou rodar python -m graphify watch . em um terminal separado; ele ficará vigiando seus arquivos e atualizará o relatório assim que você salvar o código.
+
 # 🐾 Sistema de Gestão de Pet Shop (Full-Stack)
 
 [![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](https://github.com/fthenri/pet-shop-bd-v2/blob/main/LICENSE)
