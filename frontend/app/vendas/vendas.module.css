@@ -1,0 +1,194 @@
+/* ============================ */
+/* ===== LAYOUT PDV (GRID) ==== */
+/* ============================ */
+
+.pdvContainer {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 2rem;
+    align-items: flex-start; 
+}
+
+.colunaCarrinho {
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+    min-height: 70vh;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--table-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.colunaAcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; 
+    position: sticky; 
+    top: 2rem; 
+}
+
+/* ============================ */
+/* ==== COLUNA DO CARRINHO ==== */
+/* ============================ */
+
+.tabelaContainer {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    max-height: 50vh; 
+    border-top: 1px solid var(--table-border);
+    border-bottom: 1px solid var(--table-border);
+    margin-top: 1rem;
+}
+
+.tabelaCarrinho th:nth-child(3), .tabelaCarrinho td:nth-child(3) {
+    text-align: center;
+    width: 90px;
+}
+.tabelaCarrinho th:nth-child(5), .tabelaCarrinho td:nth-child(5) {
+    width: 50px;
+    text-align: center;
+}
+
+.carrinhoVazio {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-color-muted);
+    font-style: italic;
+}
+
+.qtyInput {
+    width: 70px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    border: 1px solid var(--form-input-border);
+    background-color: var(--form-input-bg);
+    color: var(--text-color);
+    border-radius: 4px;
+    -moz-appearance: textfield; 
+}
+.qtyInput::-webkit-outer-spin-button,
+.qtyInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.deleteBtn {
+    padding: 0.5rem 0.75rem;
+    line-height: 1;
+    font-size: 0.9rem;
+}
+
+.footerCarrinho {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.totalDisplay {
+    flex-grow: 1;
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    text-align: right;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.totalDisplay span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.totalDisplay h2 {
+    margin: 0;
+    font-size: 2.25rem;
+    line-height: 1.1;
+}
+
+
+/* ============================ */
+/* ====== COLUNA DE AÇÕES ===== */
+/* ============================ */
+
+.autocompleteWrapper {
+    position: relative;
+}
+
+.autocompleteList {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    right: 0;
+    background-color: var(--content-bg);
+    border: 1px solid var(--table-border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 1000;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+}
+
+.autocompleteItem {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--table-border);
+}
+
+.autocompleteItem:last-child {
+    border-bottom: none;
+}
+
+.autocompleteItem:hover {
+    background-color: var(--table-hover);
+}
+
+.itemInfo {
+    font-size: 0.8rem;
+    color: var(--text-color-muted);
+    display: block;
+    margin-top: 2px;
+}
+
+.finalizarBtn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem; 
+}
+
+
+/* ============================ */
+/* ======== RESPONSIVO ======== */
+/* ============================ */
+
+@media (max-width: 900px) {
+    .pdvContainer {
+        grid-template-columns: 1fr;
+    }
+    
+    .colunaAcoes {
+        position: static;
+        top: auto;
+    }
+
+    .footerCarrinho {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .totalDisplay {
+        text-align: center;
+    }
+
+    .totalDisplay h2 {
+        font-size: 2rem;
+    }
+}

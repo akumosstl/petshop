@@ -1,0 +1,143 @@
+/* ============================ */
+/* ==== LAYOUT DO DASHBOARD === */
+/* ============================ */
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--table-border);
+}
+
+.sectionHeader h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.sectionHeader svg {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+}
+
+.chartsGrid {
+    display: grid;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.chartCard {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--table-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    width: 100%;
+    height: 100%; 
+}
+
+.chartContentWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 1rem;
+}
+
+
+/* MÉTRICAS FINANCEIRAS */
+.financeGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.fullWidthCard {
+    grid-column: 1 / -1;
+}
+
+.lineChartWrapper {
+    max-height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* PRODUTOS/CLIENTES */
+.productGrid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+}
+
+.productGrid .chartCard {
+    min-height: 450px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.chartContentWrapper canvas {
+    max-height: 100% !important; 
+    max-width: 100% !important;
+}
+
+
+/* OPERACIONAL E EQUIPE */
+.opsGrid {
+    grid-template-columns: 2fr 1fr; 
+}
+.opsGrid .pieCard {
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+}
+.opsGrid .barCard {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* INVENTÁRIO */
+.inventoryGrid {
+    grid-template-columns: 1fr;
+}
+
+.inventoryGrid table {
+    margin-top: 0;
+}
+.inventoryGrid .table-container {
+    margin-bottom: 0;
+}
+
+
+/* ============================ */
+/* = MEDIA QUERIES responsivo = */
+/* ============================ */
+
+/* para telas menores que 1200px */
+@media (max-width: 1200px) {
+    .opsGrid {
+        grid-template-columns: 1fr;
+    }
+    .opsGrid .pieCard {
+        grid-row: auto;
+    }
+}
+
+/* para telas menores que 768px */
+@media (max-width: 768px) {
+    .financeGrid,
+    .productGrid {
+        grid-template-columns: 1fr; 
+    }
+}
+
+/* KPI */
+.kpiContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
