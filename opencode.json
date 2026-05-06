@@ -1,0 +1,236 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "default",
+  "small_model": "default",
+  "default_agent": "build",
+  "agent": {
+    "analyzer": {
+      "description": "Agente s\u00eanior de an\u00e1lise \u2014 somente leitura, validado por schema. Avalia arquitetura, depend\u00eancias, riscos e produz descobertas estruturadas.",
+      "mode": "primary",
+      "model": "default",
+      "temperature": 0.2,
+      "steps": 5,
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "task": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    },
+    "planner": {
+      "description": "Agente s\u00eanior de planejamento \u2014 somente leitura, transforma an\u00e1lise em um plano execut\u00e1vel com marcos, tarefas, depend\u00eancias, estrat\u00e9gia de rollback e crit\u00e9rios de sucesso.",
+      "mode": "primary",
+      "model": "default",
+      "temperature": 0.3,
+      "steps": 5,
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "task": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    },
+    "implementer": {
+      "description": "Agente s\u00eanior de implementa\u00e7\u00e3o \u2014 leitura+escrita+bash, executa o plano aprovado exatamente. Registra cada mudan\u00e7a de arquivo, comando e resultado.",
+      "mode": "primary",
+      "model": "default",
+      "temperature": 0.1,
+      "steps": 20,
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "task": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    },
+    "verifier": {
+      "description": "Agente s\u00eanior de verifica\u00e7\u00e3o \u2014 leitura+bash(apenas teste), sem edi\u00e7\u00f5es. Verifica implementa\u00e7\u00e3o contra crit\u00e9rios de sucesso do plano, executa testes e produz veredito passa/falha.",
+      "mode": "primary",
+      "model": "default",
+      "temperature": 0.0,
+      "steps": 10,
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": {
+          "*": "allow"
+        },
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "task": "deny",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    },
+    "researcher": {
+      "description": "Agente focado em an\u00e1lise competitiva, defini\u00e7\u00e3o de personas e levantamento de requisitos t\u00e9cnicos para novos produtos.",
+      "mode": "subagent",
+      "model": "default",
+      "temperature": 0.3,
+      "steps": 10,
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "task": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "lsp": "allow",
+        "skill": "allow"
+      }
+    }
+  },
+  "command": {
+    "analyze": {
+      "template": "Executa apenas o agente Analyzer. Produz uma an\u00e1lise estruturada da solicita\u00e7\u00e3o atual e a escreve em .agentic/memory/analyze_{id}.json. Use o argumento $ARGUMENTS como descri\u00e7\u00e3o da tarefa.",
+      "description": "Executa apenas o agente Analyzer. Produz uma an\u00e1lise estruturada da solicita\u00e7\u00e3o atual e a escreve em .agentic/memory/analyze_{id}.json.",
+      "agent": "analyzer",
+      "model": "default"
+    },
+    "plan": {
+      "template": "L\u00ea a an\u00e1lise e a transforma em um plano execut\u00e1vel. Use o argumento $ARGUMENTS como identificador do plan.",
+      "description": "L\u00ea a an\u00e1lise e a transforma em um plano execut\u00e1vel.",
+      "agent": "planner",
+      "model": "default"
+    },
+    "implement": {
+      "template": "Executa a implementa\u00e7\u00e3o de um planner. Use o argumento $ARGUMENTS como identificador da implementa\u00e7\u00e3o.",
+      "description": "Executa a implementa\u00e7\u00e3o de um planner.",
+      "agent": "implementer",
+      "model": "default"
+    },
+    "verify": {
+      "template": "Executa o agente Verifier no estado atual. Verifica artefatos de implementa\u00e7\u00e3o existentes contra crit\u00e9rios de sucesso do plano. Use o argumento $ARGUMENTS como identificador do verify.",
+      "description": "Executa o agente Verifier no estado atual. Verifica artefatos de implementa\u00e7\u00e3o existentes contra crit\u00e9rios de sucesso do plano.",
+      "agent": "verifier",
+      "model": "default"
+    },
+    "reserch": {
+      "template": "Executa apenas o agente Researcher. Produz uma pesquisa estruturada da solicita\u00e7\u00e3o atual e a escreve em .agentic/memory/researching_{id}.json. Use o argumento $ARGUMENTS como descri\u00e7\u00e3o da tarefa de pesquisa.",
+      "description": "Executa apenas o agente Researcher. Produz uma pesquisa estruturada da solicita\u00e7\u00e3o atual e a escreve em .agentic/memory/researching_{id}.json.",
+      "agent": "researcher",
+      "model": "default"
+    },
+    "ship": {
+      "template": "Executa o pipeline completo (implement \u2192 verify \u2192 git commit). Se a verifica\u00e7\u00e3o passar, faz commit de todas as mudan\u00e7as. Use o argumento $ARGUMENTS como descri\u00e7\u00e3o da tarefa.",
+      "description": "Executa o pipeline completo (implement \u2192 verify \u2192 git commit). Se a verifica\u00e7\u00e3o passar, faz commit de todas as mudan\u00e7as.",
+      "agent": "implementer",
+      "model": "default"
+    },
+    "replan": {
+      "template": "Re-planeja a partir de falhas de verifica\u00e7\u00e3o. L\u00ea falhas do verifier e produz um plano atualizado para trat\u00e1-las. Use o argumento $ARGUMENTS como identificador do replan.",
+      "description": "Re-planeja a partir de falhas de verifica\u00e7\u00e3o. L\u00ea falhas do verifier e produz um plano atualizado para trat\u00e1-las. M\u00e1ximo de 2 loops de replan.",
+      "agent": "analyzer",
+      "model": "default"
+    },
+    "fix": {
+      "template": "Tenta corrigir um erro usando o hist\u00f3rico da Wiki e Troubleshooting. Analise o erro: $ARGUMENTS",
+      "description": "Tenta corrigir um erro usando o hist\u00f3rico da Wiki e Troubleshooting."
+    },
+    "ingest": {
+      "template": "L\u00ea um arquivo bruto e o compila para a wiki. Arquivo: $ARGUMENTS",
+      "description": "L\u00ea um arquivo bruto e o compila para a wiki."
+    },
+    "lint": {
+      "template": "Revisa a integridade e organiza\u00e7\u00e3o da Wiki.",
+      "description": "Revisa a integridade e organiza\u00e7\u00e3o da Wiki."
+    },
+    "search": {
+      "template": "Realiza uma busca profunda e relacional (Mapa Mental) na Wiki. Termo: $ARGUMENTS",
+      "description": "Realiza uma busca profunda e relacional (Mapa Mental) na Wiki."
+    },
+    "ajuda": {
+      "template": "Tira uma d\u00favida usando apenas o conhecimento da sua Wiki. Pergunta: $ARGUMENTS",
+      "description": "Tira uma d\u00favida usando apenas o conhecimento da sua Wiki."
+    },
+    "summarize-session": {
+      "template": "Resume as atividades da sess\u00e3o atual e atualiza o progresso.",
+      "description": "Resume as atividades da sess\u00e3o atual e atualiza o progresso."
+    }
+  },
+  "instructions": [
+    ".opencode/instructions/conventions.md",
+    ".opencode/instructions/security.md",
+    ".opencode/instincts/no-prose.md",
+    ".opencode/instincts/phase-boundary.md",
+    ".opencode/instincts/token-save.md"
+  ],
+  "permission": {
+    "read": "allow",
+    "edit": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "bash": "allow",
+    "task": "allow",
+    "todowrite": "allow",
+    "question": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "lsp": "allow",
+    "skill": "allow",
+    "external_directory": "ask"
+  },
+  "skills": {
+    "paths": [
+      ".opencode/skills"
+    ]
+  },
+  "plugin": [
+    "@opencode-ai/plugin",
+    ".opencode/plugins/graphify.js"
+  ],
+  "server": {
+    "port": 4096
+  },
+  "snapshot": true,
+  "autoupdate": true,
+  "share": "manual",
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 10000
+  },
+  "mcp": {
+    "sql-runner": {
+      "type": "local",
+      "command": ["java", "-jar", "C:\\Users\\USER\\projects\\github\\petshop\\sql-runner.jar"],
+      "enabled": true
+    }
+  },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      ".agentic/**",
+      "dist/**",
+      ".git/**"
+    ]
+  }
+}

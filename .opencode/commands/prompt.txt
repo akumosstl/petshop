@@ -1,0 +1,3 @@
+/reserch s1_re_001 a tela de /vendas deve ter uma lista de vendas feita no dia, essa listagem deve ser paginada (10)
+
+
